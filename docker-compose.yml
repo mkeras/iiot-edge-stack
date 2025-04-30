@@ -1,0 +1,28 @@
+
+
+
+services:
+  mqtt-broker:
+    image: hivemq/hivemq-edge
+    container_name: mqtt-broker
+    environment:
+      - TZ=${TZ}
+      - HIVEMQ_LOG_FOLDER=${HIVEMQ_LOG_FOLDER}
+      - HIVEMQ_CONFIG_FOLDER=${HIVEMQ_CONFIG_FOLDER}
+      - HIVEMQ_DATA_FOLDER=${HIVEMQ_DATA_FOLDER}
+    ports:
+      - ${MQTT_PORT}:1883
+      - ${HIVEMQ_ADMIN_PORT}:8080
+    volumes:
+      - ./mqtt-hivemq-edge/logs:${HIVEMQ_LOG_FOLDER}
+      - ./mqtt-hivemq-edge/config:${HIVEMQ_CONFIG_FOLDER}
+      - ./mqtt-hivemq-edge/data:${HIVEMQ_DATA_FOLDER}
+
+    networks:
+      - iiot-edge-net
+
+
+
+  
+networks:
+  iiot-edge-net:
