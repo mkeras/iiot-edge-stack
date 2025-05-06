@@ -3,6 +3,7 @@
 
 services:
   mqtt-broker:
+    # restart: always
     image: hivemq/hivemq-edge
     container_name: mqtt-broker
     environment:
@@ -14,15 +15,59 @@ services:
       - ${MQTT_PORT}:1883
       - ${HIVEMQ_ADMIN_PORT}:8080
     volumes:
-      - ./mqtt-hivemq-edge/logs:${HIVEMQ_LOG_FOLDER}
-      - ./mqtt-hivemq-edge/config:${HIVEMQ_CONFIG_FOLDER}
-      - ./mqtt-hivemq-edge/data:${HIVEMQ_DATA_FOLDER}
+      - ${HOST_HIVEMQ_LOG_FOLDER}:${HIVEMQ_LOG_FOLDER}
+      - ${HOST_HIVEMQ_CONFIG_FOLDER}:${HIVEMQ_CONFIG_FOLDER}
+      - ${HOST_HIVEMQ_DATA_FOLDER}:${HIVEMQ_DATA_FOLDER}
 
     networks:
       - iiot-edge-net
+ 
 
+  historian:
+    # restart: always
+    image: timebase/historian:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 4096m
+    hostname: historian
+    container_name: historian
+    ports:
+      - ${TB_HISTORIAN_PORT_EXTERNAL:-4511}:4511
+    volumes:
+      - ${TB_HISTORIAN_DIR:?error TB_HISTORIAN_DIR not supplied!}:/historian
+    environment:
+      - Settings=/historian/settings
+      - Data=/historian/data
+      - Logs=/historian/logs
+    networks:
+      - iiot-edge-net
 
+  explorer:
+    # restart: always
+    image: timebase/explorer:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 2048m
+    hostname: explorer
+    container_name: explorer
+    ports:
+      - ${TB_EXPLORER_PORT_EXTERNAL:-4531}:4531
+    volumes:
+      - ${TB_EXPLORER_DIR:?error TB_EXPLORER_DIR not supplied!}:/explorer
+    environment:
+      - Settings=/explorer/settings
+      - Config=/explorer/config
+      - Data=/explorer/data
+      - Logs=/explorer/logs
+    networks:
+      - iiot-edge-net
 
   
 networks:
   iiot-edge-net:
+    external: true
+    name: iiot-edge-net

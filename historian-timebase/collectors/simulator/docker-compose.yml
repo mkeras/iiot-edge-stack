@@ -1,0 +1,32 @@
+
+services:
+  simulator:
+    image: timebase/collector:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 2048m
+    hostname: simulator
+    container_name: simulator
+    ports:
+      - 4521:4521
+    restart: unless-stopped
+    volumes:
+     - ./data:/simulator
+    environment:
+      - Active=true
+      - Settings=/simulator/settings
+      - Config=/simulator/config
+      - Data=/simulator/data
+      - Logs=/simulator/logs
+    networks:
+      - timebase-net
+
+volumes:
+  timebase-simulator:
+
+networks:
+  timebase-net:
+    external: true
+    name: ${TIMEBASE_DOCKER_NET}

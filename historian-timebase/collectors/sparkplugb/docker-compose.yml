@@ -1,0 +1,33 @@
+
+
+
+services:
+  sparkplugb:
+    image: timebase/collector:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 2048m
+    hostname: sparkplugb
+    container_name: sparkplugb
+    ports:
+     - 4527:4521
+    restart: unless-stopped
+    volumes:
+    - ./data:/sparkplugb
+    environment:
+      - Active=true
+      - Settings=/sparkplugb/settings
+      - Config=/sparkplugb/config
+      - Data=/sparkplugb/data
+      - Logs=/sparkplugb/logs
+    networks:
+      - timebase-net
+
+
+
+networks:
+  timebase-net:
+    external: true
+    name: ${TIMEBASE_DOCKER_NET}

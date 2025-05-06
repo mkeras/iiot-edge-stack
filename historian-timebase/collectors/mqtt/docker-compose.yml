@@ -1,0 +1,32 @@
+services:
+  mqtt:
+    image: timebase/collector:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 2048m
+    hostname: mqtt
+    container_name: mqtt
+    ports:
+      - 4525:4521
+    restart: unless-stopped
+    volumes:
+    - ./data:/mqtt
+    environment:
+      - Active=true
+      - Settings=/mqtt/settings
+      - Config=/mqtt/config
+      - Data=/mqtt/data
+      - Logs=/mqtt/logs
+    networks:
+      - timebase-net
+
+volumes:
+  timebase-mqtt:
+
+
+networks:
+  timebase-net:
+    external: true
+    name: ${TIMEBASE_DOCKER_NET}

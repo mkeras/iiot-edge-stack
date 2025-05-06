@@ -1,0 +1,31 @@
+
+
+VMS:
+  Prod_Services:
+    Virtual_CPUS: 4
+    Cores: 1
+    Threads: 1
+    Memory: 8gb 
+    Devices:
+      - ID: 12
+        Type: Disk
+        Path: /dev/zvol/SSD+Fast+Storage/VM_Disks/Prod_Services/Prod_Services_os
+        Order: 1001
+      - ID: 17
+        Type: Disk
+        Path: /dev/zvol/SSD+Fast+Storage/VM_Disks/Prod_Services/kafka
+        Order: 1001
+        Remove: yes
+      - ID: 16
+        Type: Disk
+        Path: /dev/zvol/SSD+Fast+Storage/VM_Disks/Prod_Services/Prod_Services_data
+        Order: 1002
+      - ID: 13
+        Type: NIC
+        Mac: 00:a0:98:7f:66:8f
+        IPv4 Address: 10.0.0.6
+        Order: 1003
+      - ID: 14
+        Type: Display
+        Password: AB0AF784D59A0ED8CD6BD295
+        Order: 1004

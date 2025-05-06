@@ -1,0 +1,34 @@
+
+
+services:
+  opcua:
+    image: timebase/collector:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 2048m
+    hostname: opcua
+    container_name: opcua
+    ports:
+      - 4523:4521
+    restart: unless-stopped
+    volumes:
+     - ./data:/opcua
+    environment:
+      - Active=true
+      - Settings=/opcua/settings
+      - Config=/opcua/config
+      - Data=/opcua/data
+      - Logs=/opcua/logs
+    networks:
+      - timebase-net
+
+volumes:
+  timebase-opcua:
+
+
+networks:
+  timebase-net:
+    external: true
+    name: ${TIMEBASE_DOCKER_NET}
