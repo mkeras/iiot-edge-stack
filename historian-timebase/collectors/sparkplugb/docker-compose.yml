@@ -3,6 +3,7 @@
 
 services:
   sparkplugb:
+    # restart: always
     image: timebase/collector:latest
     deploy:
       resources:
@@ -13,7 +14,6 @@ services:
     container_name: sparkplugb
     ports:
      - 4527:4521
-    restart: unless-stopped
     volumes:
     - ./data:/sparkplugb
     environment:

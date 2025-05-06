@@ -1,6 +1,7 @@
 
 services:
   simulator:
+    # restart: always
     image: timebase/collector:latest
     deploy:
       resources:
@@ -11,7 +12,6 @@ services:
     container_name: simulator
     ports:
       - 4521:4521
-    restart: unless-stopped
     volumes:
      - ./data:/simulator
     environment:

@@ -2,6 +2,7 @@
 
 services:
   opcua:
+    # restart: always
     image: timebase/collector:latest
     deploy:
       resources:
@@ -12,7 +13,6 @@ services:
     container_name: opcua
     ports:
       - 4523:4521
-    restart: unless-stopped
     volumes:
      - ./data:/opcua
     environment:

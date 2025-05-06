@@ -1,5 +1,6 @@
 services:
   mqtt:
+    # restart: always
     image: timebase/collector:latest
     deploy:
       resources:
@@ -10,7 +11,6 @@ services:
     container_name: mqtt
     ports:
       - 4525:4521
-    restart: unless-stopped
     volumes:
     - ./data:/mqtt
     environment:
