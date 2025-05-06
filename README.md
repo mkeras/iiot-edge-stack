@@ -1,5 +1,5 @@
 # iiot-edge-stack
-Demo docker stack for edge devices. Uses: HiveMQ Edge and timebase historian to historize sparkplug b tags
+Demo docker stack for edge devices. Uses: HiveMQ Edge and Timebase Historian to create an MQTT Broker and local tag Historian.
 
 
 ## Prerequisites
