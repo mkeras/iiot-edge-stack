@@ -4,6 +4,7 @@ Demo docker stack for edge devices. Uses: HiveMQ Edge and Timebase Historian to 
 
 ## Prerequisites
 - docker and docker compose
+- git
 
 
 ## How to use
@@ -26,7 +27,7 @@ This command will start the HiveMQ Edge, Timebase Historian, and Timebase Explor
 
 ---
 ### 5) Start the collector(s)
-Please note that only the Sparkplug B has been tested/configured correctly to work with this stack so far. To start a collector simply docker compose up, specifying collector's directory. For example, the sparkplug b collector: `docker compose -f "historian-timebase/collectors/sparkplugb/docker-compose.yml" up -d`
+Please note that only the Sparkplug B has been tested/configured correctly to work with this stack so far. To start a collector simply docker compose up, specifying collector's directory. For example, the sparkplug b collector: `docker compose -f "historian-timebase/collectors/sparkplugb/docker-compose.yml" up -d`. The Sparkplug B collector's web interface port is 4527.
 
 ---
 ### 6) Done
