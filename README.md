@@ -21,6 +21,9 @@ This command will start the HiveMQ Edge, Timebase Historian, and Timebase Explor
 - Timebase Explorer: 4531 (.env TB_EXPLORER_PORT_EXTERNAL)
 - HiveMQ Edge: 6001 for the web interface (.env HIVEMQ_ADMIN_PORT) and 1883 for MQTT (.env MQTT_PORT).
 
+<p><i>Be sure the your docker host machine has the required ports free, or this step will fail</i></p>
+
+
 ---
 ### 5) Start the collector(s)
 Please note that only the Sparkplug B has been tested/configured correctly to work with this stack so far. To start a collector simply docker compose up, specifying collector's directory. For example, the sparkplug b collector: `docker compose -f "historian-timebase/collectors/sparkplugb/docker-compose.yml" up -d`
@@ -28,7 +31,13 @@ Please note that only the Sparkplug B has been tested/configured correctly to wo
 ---
 ### 6) Done
 Once these steps are complete and the sparkplugb collector is running, your host machine is ready to accept mqtt connections on port 1883 and is ready to historize any sparkplug b payloads via timebase. The Dataset name of the Sparkplug B collector is SPB_DEMO. This can be changed in via the file: <br>`historian-timebase/collectors/sparkplugb/data/config/collector.config`
+<br>
+The web interfaces can now be found at (assuming .env port settings were not changed):
+ - Timebase Historian: http://localhost:4511
+ - Timebase Explorer: http://localhost:4531
+ - Timebase Sparkplug B Collector: http://localhost:4527
+ - HiveMQ Edge: http://localhost:6001
 
 ## See also:
-### [Timebase Documentation](https://timebase.flow-software.com/en/knowledge-base/start-here)
-### [HiveMQ Edge Documentation](https://docs.hivemq.com/hivemq-edge/)
+- ### [Timebase Documentation](https://timebase.flow-software.com/en/knowledge-base/start-here)
+- ### [HiveMQ Edge Documentation](https://docs.hivemq.com/hivemq-edge/)
