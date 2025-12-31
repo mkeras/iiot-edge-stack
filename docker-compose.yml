@@ -70,4 +70,4 @@ services:
 networks:
   iiot-edge-net:
     external: true
-    name: iiot-edge-net
+    name: ${DOCKER_NET_NAME:?error DOCKER_NET_NAME not supplied!}
